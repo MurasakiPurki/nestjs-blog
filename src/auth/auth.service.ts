@@ -6,9 +6,9 @@ import { Crypt } from './password.crypt';
 @Injectable()
 export class AuthService {
   constructor(
-    private userService: UserService,
-    private jwtService: JwtService,
-    private crypt: Crypt,
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+    private readonly crypt: Crypt,
   ) {}
 
   async validateUser(id: string, password: string): Promise<any> {

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { Connection, getConnectionOptions } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
@@ -11,15 +12,16 @@ import { UserModule } from './user/user.module';
     UserModule,
     BlogpostModule,
     AuthModule,
-    TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db',
-      entities: [__dirname + '/**/*.entity.{js,ts}'],
-      synchronize: true,
-      logging: true,
+    TypeOrmModule.forRootAsync({
+      useFactory: async () =>
+        Object.assign(await getConnectionOptions(), {
+          autoLoadEntities: true,
+        }),
     }),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private connection: Connection) {}
+}

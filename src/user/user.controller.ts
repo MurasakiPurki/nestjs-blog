@@ -18,8 +18,8 @@ import { UserService } from './user.service';
 @ApiTags('User')
 export class UserController {
   constructor(
-    private userService: UserService,
-    private authService: AuthService,
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
   ) {}
   @Get('findall')
   @ApiOperation({

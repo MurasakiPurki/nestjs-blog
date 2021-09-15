@@ -24,7 +24,7 @@ import { Blogpost } from './entities/blogpost.entity';
 @Controller()
 @ApiTags('Blogpost')
 export class BlogpostController {
-  constructor(private BlogpostService: BlogpostService) {}
+  constructor(private readonly BlogpostService: BlogpostService) {}
 
   @Get('blogpost')
   @ApiOperation({

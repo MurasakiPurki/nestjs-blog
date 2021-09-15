@@ -14,9 +14,9 @@ import { User } from 'src/user/entities/user.entity';
 export class BlogpostService {
   constructor(
     @InjectRepository(Blogpost)
-    private blogpostRepository: Repository<Blogpost>,
+    private readonly blogpostRepository: Repository<Blogpost>,
     @InjectRepository(User)
-    private userRepository: Repository<User>,
+    private readonly userRepository: Repository<User>,
   ) {}
 
   async findAll(): Promise<Blogpost[]> {
@@ -57,13 +57,6 @@ export class BlogpostService {
           id: (await this.userRepository.findOne(signedUser)).id,
         },
       });
-      /* const user = this.userRepository.findOne();
-      if(!user) throw new NotFoundException('해유저ㄹ 찾ㅣㅗ했ㅡ니');
-
-      const _blogData = new Blogpost();
-      _blogData.content =content;
-      _blogData.title = title;
-      _blogData.author = user; */
       return await this.blogpostRepository.save(blogData);
     } catch (e) {
       Error.captureStackTrace(e);

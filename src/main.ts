@@ -3,7 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { PostWriteDto } from './blogpost/dto/blogpost.dto';
 import { UserDto, UserAuthDto } from './user/dto/user.dto';
-
+declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const config = new DocumentBuilder()
@@ -19,6 +19,10 @@ async function bootstrap() {
     extraModels: [PostWriteDto, UserAuthDto, UserDto],
   });
   SwaggerModule.setup('api', app, document);
+  if (module.hot) {
+    module.hot.accept();
+    module.hot.dispose(() => app.close());
+  }
   await app.listen(3000);
 }
 bootstrap();
