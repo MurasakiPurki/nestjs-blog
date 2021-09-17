@@ -3,13 +3,16 @@ import {
   Controller,
   Get,
   Post,
+  Req,
   Request,
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthService } from 'src/auth/auth.service';
+import { GoogleAuthGuard } from 'src/auth/guard/google-auth.guard';
 import { JwtAuthGuard } from 'src/auth/guard/jwt-auth.guard';
 import { LocalAuthGuard } from 'src/auth/guard/local-auth.guard';
+import { googleStrategy } from 'src/auth/strategy/google.strategy';
 import { UserDto, UserAuthDto } from './dto/user.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './user.service';
@@ -55,5 +58,16 @@ export class UserController {
   @Get('profile')
   async getProfile(@Request() req) {
     return await req.user;
+  }
+  @Get('googlelogin')
+  @UseGuards(GoogleAuthGuard)
+  async googlelogin(@Request() req) {
+    console.log(req);
+  }
+
+  @Get('auth')
+  @UseGuards(GoogleAuthGuard)
+  googleAuthRedirect(@Request() req) {
+    return this.authService.login(req.user);
   }
 }

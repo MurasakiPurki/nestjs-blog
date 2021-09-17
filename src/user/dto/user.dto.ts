@@ -1,4 +1,4 @@
-import { ApiProperty, PickType } from '@nestjs/swagger';
+import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
 import { User } from '../entities/user.entity';
 
 export class UserAuthDto extends PickType(User, ['id', 'password']) {
@@ -18,3 +18,4 @@ export class UserDto {
   @ApiProperty({ description: 'email', example: 'test' })
   email: string;
 }
+export class GoogleUserAuthDto extends OmitType(User, ['password']) {}

@@ -8,7 +8,7 @@ export class User {
   @ApiProperty({ description: 'id', example: 'test' })
   public readonly id: string;
 
-  @Column()
+  @Column({ nullable: true })
   @ApiProperty({ description: 'password', example: 'test' })
   password: string;
 
