@@ -7,11 +7,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { Crypt } from 'src/auth/password.crypt';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-    forwardRef(() => AuthModule),
-    Crypt,
-  ],
+  imports: [TypeOrmModule.forFeature([User]), AuthModule, Crypt],
   controllers: [UserController],
   providers: [UserService, Crypt],
   exports: [UserService],

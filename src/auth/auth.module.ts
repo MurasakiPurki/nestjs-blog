@@ -14,7 +14,6 @@ import { User } from 'src/user/entities/user.entity';
 
 @Module({
   imports: [
-    forwardRef(() => UserModule),
     PassportModule,
     JwtModule.register({
       secret: jwtConstants.secret,

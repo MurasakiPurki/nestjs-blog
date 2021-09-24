@@ -9,9 +9,11 @@ export class Crypt {
     console.log(hashpassword);
     return await hashpassword;
   }
-  async compare(userpassword: string, hashpassword: string): Promise<boolean> {
-    console.log(hashpassword, userpassword);
-    const isMatch = await bcrypt.compare(userpassword, hashpassword);
+  async compare(
+    encrypted_password: string,
+    input_password: string,
+  ): Promise<boolean> {
+    const isMatch = await bcrypt.compare(input_password, encrypted_password);
     console.log(isMatch);
     return await isMatch;
   }
